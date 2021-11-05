@@ -1,0 +1,24 @@
+#+TITLE: Advent of Gerbil
+
+Solutions to Advent of Code puzzles in Gerbil Scheme.
+
+* Usage
+
+Drop your puzzle input in a sub-directory of this project called =data/<year>=,
+e.g. =data/2021= if you are solving puzzles for 2021. Each input should be a
+=.txt= file named as the day solved, e.g. =day01.txt= for the first day,
+=day02.txt= for the second day, etc.
+
+Then you can solve a puzzle by issuing:
+
+#+begin_src shell
+./solutions.ss --year 2021 --day 1
+#+end_src
+
+* Development
+** Tests
+Run all the tests by issuing:
+
+#+begin_src shell
+./tests.ss
+#+end_src
