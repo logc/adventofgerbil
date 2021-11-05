@@ -20,6 +20,13 @@
        (format "Puzzle 1: ~a~nPuzzle 2: ~a"
                (count-1d puzzle-input)
                (count-1d-until puzzle-input negative?))))
+    ([2 2015]
+     (let ((puzzle-input
+            (map parse-present-dimensions
+                 (read-file-lines "data/2015/day02.txt"))))
+       (format "Puzzle 1: ~a~nPuzzle 2: ~a"
+               (sum (map wrap-paper puzzle-input))
+               (sum (map wrap-ribbon puzzle-input)))))
     (else (format "Sorry, no solution yet for day ~a of ~a" day year))))
 
 (define (main . args)
