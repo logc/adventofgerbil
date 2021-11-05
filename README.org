@@ -1,6 +1,6 @@
 #+TITLE: Advent of Gerbil
 
-Solutions to Advent of Code puzzles in Gerbil Scheme.
+Solutions to [[https://adventofcode.com][Advent of Code]] puzzles in [[https://cons.io/][Gerbil Scheme]].
 
 * Usage
 
