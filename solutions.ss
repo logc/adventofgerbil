@@ -27,6 +27,11 @@
        (format "Puzzle 1: ~a~nPuzzle 2: ~a"
                (sum (map wrap-paper puzzle-input))
                (sum (map wrap-ribbon puzzle-input)))))
+    ([3 2015]
+     (let ((puzzle-input (read-file-string "data/2015/day03.txt")))
+       (format "Puzzle 1: ~a~nPuzzle 2: ~a"
+                (deliver-presents puzzle-input)
+                (deliver-presents-with-robo puzzle-input))))
     (else (format "Sorry, no solution yet for day ~a of ~a" day year))))
 
 (define (main . args)

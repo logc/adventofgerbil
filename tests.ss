@@ -60,12 +60,42 @@
       ;; the cubic feet of volume of the present. Don't ask how they tie the bow, though\;
       ;; they'll never tell.
       (check (wrap-ribbon '(2 3 4)) => 34)
-      (check (wrap-ribbon '(1 1 10)) => 14)
+      (check (wrap-ribbon '(1 1 10)) => 14))))
 
-      )))
+(define 2015/03-tests
+  (test-suite "2015 day 3"
+    (test-case "Perfectly Spherical Houses in a Vacuum"
+      ;; Santa is delivering presents to an infinite two-dimensional grid of houses.
+
+      ;; He begins by delivering a present to the house at his starting location, and
+      ;; then an elf at the North Pole calls him via radio and tells him where to move
+      ;; next. Moves are always exactly one house to the north (^), south (v), east (>),
+      ;; or west (<). After each move, he delivers another present to the house at his
+      ;; new location.
+
+      ;; However, the elf back at the north pole has had a little too much eggnog, and so
+      ;; his directions are a little off, and Santa ends up visiting some houses more
+      ;; than once. How many houses receive at least one present?
+      (check (deliver-presents ">") => 2)
+      (check (deliver-presents "^>v<") => 4)
+      (check (deliver-presents "^v^v^v^v^v") => 2)
+      (check (deliver-presents ">>>>>^>>><") => 10)
+      )
+    (test-case "Part Two"
+      ;; The next year, to speed up the process, Santa creates a robot version of
+      ;; himself, Robo-Santa, to deliver presents with him.
+
+      ;; Santa and Robo-Santa start at the same location (delivering two presents to the
+      ;; same starting house), then take turns moving based on instructions from the elf,
+      ;; who is eggnoggedly reading from the same script as the previous year.
+
+      ;; This year, how many houses receive at least one present?
+      (check (deliver-presents-with-robo "^v") => 3)
+      (check (deliver-presents-with-robo "^>v<") => 3)
+      (check (deliver-presents-with-robo "^v^v^v^v^v") => 11))))
 
 (define (main . args)
-  (let ((tests [2015/01-tests 2015/02-tests]))
+  (let ((tests [2015/01-tests 2015/02-tests 2015/03-tests]))
     (apply run-tests! tests)
     (test-report-summary!)
     (exit (case (test-result) ((OK) 0) (else 1)))))
