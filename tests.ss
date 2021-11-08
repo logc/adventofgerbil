@@ -94,8 +94,26 @@
       (check (deliver-presents-with-robo "^>v<") => 3)
       (check (deliver-presents-with-robo "^v^v^v^v^v") => 11))))
 
+(define 2015/04-tests
+  (test-suite "2015 day 4"
+    (test-case "The Ideal Stocking Stuffer"
+      ;; Santa needs help mining some AdventCoins (very similar to bitcoins) to use as
+      ;; gifts for all the economically forward-thinking little girls and boys.
+
+      ;; To do this, he needs to find MD5 hashes which, in hexadecimal, start with at
+      ;; least five zeroes. The input to the MD5 hash is some secret key (your puzzle
+      ;; input, given below) followed by a number in decimal. To mine AdventCoins, you
+      ;; must find Santa the lowest positive number (no leading zeroes: 1, 2, 3, ...)
+      ;; that produces such a hash.
+      ;;
+      (check (md5-hex "abcdef" 609043) => "000001dbbfa3a5c83a2d506429c7b00e")
+      (check (has-five-leading-zeroes? "000001dbbfa3a5c83a2d506429c7b00e") => #t)
+      (check (has-five-leading-zeroes? "000021dbbfa3a5c83a2d506429c7b00e") => #f)
+      (check (mine-adventcoins "abcdef") => 609043)
+      (check (mine-adventcoins "pqrstuv") => 1048970))))
+
 (define (main . args)
-  (let ((tests [2015/01-tests 2015/02-tests 2015/03-tests]))
+  (let ((tests [2015/01-tests 2015/02-tests 2015/03-tests 2015/04-tests]))
     (apply run-tests! tests)
     (test-report-summary!)
     (exit (case (test-result) ((OK) 0) (else 1)))))

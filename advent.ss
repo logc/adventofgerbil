@@ -1,5 +1,7 @@
 (import :std/iter
-        :std/misc/list)
+        :std/misc/list
+        :std/crypto
+        :std/text/hex)
 (export #t)
 
 (define (sum ns)
@@ -95,3 +97,28 @@
     (cond ((even? idx) (append! evens val))
           ((odd? idx)  (append! odds val))))
   (list evens odds))
+
+(define (mine-adventcoins key)
+  (let loop ((num 0))
+    (if (has-five-leading-zeroes? (md5-hex key num))
+      num
+      (loop (1+ num)))))
+
+(define (mine-more-adventcoins key)
+  (let loop ((num 0))
+    (if (has-six-leading-zeroes? (md5-hex key num))
+      num
+      (loop (1+ num)))))
+
+(define (md5-hex key num)
+  (hex-encode (md5 (string-append key (number->string num)))))
+
+(define (has-five-leading-zeroes? a-string)
+  (has-many-leading-zeroes? a-string 5))
+
+(define (has-six-leading-zeroes? a-string)
+  (has-many-leading-zeroes? a-string 6))
+
+(define (has-many-leading-zeroes? a-string how-many)
+  (let ((first-five-chars (slice (string->list a-string) 0 how-many)))
+    (andmap (lambda (x) (eqv? x #\0)) first-five-chars)))

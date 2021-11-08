@@ -30,8 +30,13 @@
     ([3 2015]
      (let ((puzzle-input (read-file-string "data/2015/day03.txt")))
        (format "Puzzle 1: ~a~nPuzzle 2: ~a"
-                (deliver-presents puzzle-input)
-                (deliver-presents-with-robo puzzle-input))))
+               (deliver-presents puzzle-input)
+               (deliver-presents-with-robo puzzle-input))))
+    ([4 2015]
+     (let ((puzzle-input "ckczppom"))
+       (format "Puzzle 1: ~a~nPuzzle 2: ~a"
+               (mine-adventcoins puzzle-input)
+               (mine-more-adventcoins puzzle-input))))
     (else (format "Sorry, no solution yet for day ~a of ~a" day year))))
 
 (define (main . args)
