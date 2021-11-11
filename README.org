@@ -17,8 +17,12 @@ Then you can solve a puzzle by issuing:
 
 * Development
 ** Tests
-Run all the tests by issuing:
+Run all tests by issuing:
 
 #+begin_src shell
 ./tests.ss
 #+end_src
+
+* License
+
+This repository is licensed under the terms of the [[https://choosealicense.com/licenses/bsd-3-clause/][BSD 3-clause license]]. See LICENSE.

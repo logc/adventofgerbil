@@ -120,5 +120,5 @@
   (has-many-leading-zeroes? a-string 6))
 
 (define (has-many-leading-zeroes? a-string how-many)
-  (let ((first-five-chars (slice (string->list a-string) 0 how-many)))
-    (andmap (lambda (x) (eqv? x #\0)) first-five-chars)))
+  (let ((first-many-chars (slice (string->list a-string) 0 how-many)))
+    (andmap (lambda (x) (eqv? x #\0)) first-many-chars)))
