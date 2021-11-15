@@ -1,7 +1,8 @@
 (import :std/iter
         :std/misc/list
         :std/crypto
-        :std/text/hex)
+        :std/text/hex
+        :std/srfi/13)
 (export #t)
 
 (define (sum ns)
@@ -122,3 +123,68 @@
 (define (has-many-leading-zeroes? a-string how-many)
   (let ((first-many-chars (slice (string->list a-string) 0 how-many)))
     (andmap (lambda (x) (eqv? x #\0)) first-many-chars)))
+
+(define (is-nice? a-string)
+  (and (not (has-disallowed-substring? a-string))
+       (has-three-vowels? a-string)
+       (has-double-letter? a-string)))
+
+(define (has-disallowed-substring? a-string)
+  (or (string-contains? a-string "ab")
+      (string-contains? a-string "cd")
+      (string-contains? a-string "pq")
+      (string-contains? a-string "xy")))
+
+(define (string-contains? s p)
+  (number? (string-contains s p)))
+
+(define (has-three-vowels? a-string)
+  (let loop ((chars (string->list a-string))
+             (cnt 0))
+    (if (null? chars)
+      (>= cnt 3)
+      (let ((c (car chars)))
+        (if (is-a-vowel? c)
+          (loop (cdr chars) (1+ cnt))
+          (loop (cdr chars) cnt))))))
+
+(define (is-a-vowel? c)
+  (or (eq? c #\a)
+      (eq? c #\e)
+      (eq? c #\i)
+      (eq? c #\o)
+      (eq? c #\u)))
+
+(define (has-double-letter? a-string)
+  (let loop ((chars (string->list a-string)))
+    (if (= 1 (length chars))
+      #f
+      (let ((a (car chars))
+            (b (cadr chars)))
+        (if (eqv? a b)
+          #t
+          (loop (cdr chars)))))))
+
+(define (is-nice-now? a-string)
+  (and (has-repeated-pair? a-string)
+       (has-one-repeated-with-one-distance? a-string)))
+
+(define (has-repeated-pair? a-string)
+  (let ((pairs (pairwise (string->list a-string) '())))
+    (not (= (length pairs)
+            (length (unique pairs))))))
+
+(define (pairwise chars pairs)
+  (for/collect ((n (in-range 0 (- (length chars) 1))))
+    (list (list-ref chars n) (list-ref chars (+ n 1)))))
+
+(define (has-one-repeated-with-one-distance? a-string)
+  (ormap first-and-last-same-char (triplewise (string->list a-string))))
+
+(define (triplewise chars)
+  (for/collect ((n (in-range 0 (- (length chars) 2))))
+    (list (list-ref chars n) (list-ref chars (+ n 1)) (list-ref chars (+ n 2)))))
+
+(define (first-and-last-same-char triplet)
+  (eqv? (list-ref triplet 0)
+        (list-ref triplet 2)))

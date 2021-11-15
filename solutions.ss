@@ -37,6 +37,11 @@
        (format "Puzzle 1: ~a~nPuzzle 2: ~a"
                (mine-adventcoins puzzle-input)
                (mine-more-adventcoins puzzle-input))))
+    ([5 2015]
+     (let ((puzzle-input (read-file-lines "data/2015/day05.txt")))
+       (format "Puzzle 1: ~a~nPuzzle 2: ~a"
+               (sum (map (lambda (s) (if (is-nice? s) 1 0)) puzzle-input))
+               (sum (map (lambda (s) (if (is-nice-now? s) 1 0)) puzzle-input)))))
     (else (format "Sorry, no solution yet for day ~a of ~a" day year))))
 
 (define (main . args)
